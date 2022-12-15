@@ -8,42 +8,39 @@ import { Matrics, Colors } from '../../CommonConfig';
 
 const Dashboard = () => {
     return (
-        <>
-            <View style={styles.dashboardContainer}>
-                <View>
-                    <ShimmerPlaceholder
-                        width={(Matrics.screenWidth / 2)}
-                        height={Matrics.vs(80)}
-                        shimmerStyle={{ borderRadius: Matrics.vs(6) }}
-                    />
-                    <ShimmerPlaceholder
-                        width={Matrics.s(160)}
-                        height={Matrics.vs(12)}
-                        shimmerStyle={{ borderRadius: Matrics.vs(6) }}
-                        style={{ marginTop: Matrics.mvs(8) }}
-                    />
-                </View>
+        <FlatList
+            data={[1, 2, 3,4,5,6,7,8,9]}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(_, index) => index.toString()}
+            numColumns={2}
+            // contentContainerStyle={ContainerStyle.contentContainerStyle}
+            renderItem={({ _, index }) => (
+                <View style={{ flexDirection: 'row'}} key={index}>
                 <ShimmerPlaceholder
-                    width={(Matrics.screenWidth / 3) - Matrics.vs(10)}
-                    height={(Matrics.screenWidth / 3) - Matrics.vs(10)}
+                    key={index}
+                    width={(Matrics.screenWidth / 2)-20}
+                    height={Matrics.vs(100)}
                     shimmerStyle={{ borderRadius: Matrics.mvs(10) }}
-                />
-            </View>
-            <View style={{ marginHorizontal: Matrics.vs(20)}}>
-                <ShimmerPlaceholder
-                    width={Matrics.s(150)}
-                    height={Matrics.vs(20)}
-                    shimmerStyle={{ borderRadius: Matrics.vs(6) }}
-                    style={{ marginTop: Matrics.mvs(8) }}
+                    style={{
+                        marginTop: Matrics.mvs(12),
+                        marginLeft: Matrics.mvs(12),
+                        marginRight: Matrics.mvs(8),
+                    }}
                 />
                 <ShimmerPlaceholder
-                    width={Matrics.s(300)}
-                    height={Matrics.vs(12)}
-                    shimmerStyle={{ borderRadius: Matrics.vs(6) }}
-                    style={{ marginTop: Matrics.mvs(8) }}
+                    key={index}
+                    width={(Matrics.screenWidth / 2)-20}
+                    height={Matrics.vs(100)}
+                    shimmerStyle={{ borderRadius: Matrics.mvs(10) }}
+                    style={{
+                        marginTop: Matrics.mvs(12),
+                        marginRight: Matrics.mvs(12),
+                        marginLeft: Matrics.mvs(8),
+                    }}
                 />
-            </View>
-        </>
+                </View>
+            )}
+        />
     )
 }
 

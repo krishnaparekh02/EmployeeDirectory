@@ -9,7 +9,7 @@ import { Colors, Constants, Icons, Images, Matrics, MainStyles, Fonts } from '..
 const NoData = ({message, image, Top = 0}) => {
     return (
         <View
-            style={[ MainStyles.flexOne,styles.container, { backgroundColor: Colors.WHITE} ]}
+            style={[styles.container, { backgroundColor: Colors.WHITE} ]}
         >
             <Image 
                 source={image ?? Images.IC_NoData}
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         width: Matrics.screenWidth,
+        height: Matrics.screenHeight-200
     },
     Img: {
         height: Matrics.vs(150),
@@ -48,6 +49,6 @@ const styles = StyleSheet.create({
 		fontSize: Matrics.mvs(16),
 		lineHeight: Matrics.ms(30),
 		textTransform: 'capitalize',
-		// fontFamily: Fonts.NexaBold,
+		fontFamily: Fonts.RobotoRegular,
 	},
 });

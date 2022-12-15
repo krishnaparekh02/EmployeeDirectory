@@ -5,6 +5,8 @@ import { StyleSheet, Platform, Dimensions } from 'react-native';
 // --------------- ASSETS ---------------
 import { Colors, Constants, Icons, Images, Matrics, MainStyles, Fonts } from '../../CommonConfig';
 
+const { width } = Dimensions.get('window');
+
 export const EmployeeListStyle = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
@@ -45,7 +47,31 @@ export const EmployeeListStyle = StyleSheet.create({
         height: Matrics.vs(20),
         width: Matrics.vs(20),
         marginLeft: Matrics.vs(10)
-    }
+    },
+    itemContainer: {
+        backgroundColor: Colors.GREY,
+        width: (width/2)-Matrics.vs(15),
+        marginBottom: Matrics.vs(10),
+        borderRadius: Matrics.vs(5),
+        padding: Matrics.vs(5)
+     },
+     TitleText: {
+         fontFamily: Fonts.RobotoRegular,
+         fontSize: Matrics.vs(18),
+         fontWeight: '600',
+         color: Colors.BLACK
+     },
+     countText: {
+         fontFamily: Fonts.RobotoRegular,
+         fontSize: Matrics.vs(14),
+         fontWeight: '600',
+         color: Colors.BLACK ,
+         marginVertical: Matrics.vs(5)
+     },
+     btnView: {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+     }
 });
 
 export const AddEmployeeStyle = StyleSheet.create({

@@ -12,13 +12,15 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // --------------- ASSETS ---------------
 import Routes from './src/Routes';
-
+import { snackBarRef } from './src/Helpers/Popup';
+import { SnackBar } from './src/Components/Common';
 
 const App = () => {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={'dark-content'} />
       <Routes />
+      <SnackBar ref={snackBarRef} />
     </SafeAreaProvider>
   );
 };
