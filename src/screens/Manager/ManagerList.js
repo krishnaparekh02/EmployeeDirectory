@@ -33,6 +33,14 @@ const ManagerList = ({ navigation }) => {
         },3000);
     }, []);
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            getManager();
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
     // --------------- METHODS ---------------
     const createMangerTable = async () => {
         try {
