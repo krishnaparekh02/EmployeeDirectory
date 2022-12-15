@@ -1,12 +1,13 @@
 // --------------- LIBRARIES ---------------
 import React, { useEffect } from 'react';
-import { View,Text, Image, SafeAreaView, Pressable, FlatList } from 'react-native';
+import { View,Text, Image, SafeAreaView, Pressable, FlatList, Alert } from 'react-native';
 
 
 // --------------- ASSETS ---------------
 import { EmployeeListStyle as styles } from './Styles';
 import { Colors, Constants, Icons, Images, Matrics, MainStyles } from '../../CommonConfig';
 import { Input, NoData } from '../../Components/Common';
+import { Popup } from '../../Helpers';
 
 // --------------- FUNCTION DECLARATION ---------------
 const EmployeeList = ({ navigation }) => {
@@ -16,10 +17,14 @@ const EmployeeList = ({ navigation }) => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [employeeData, setEmployeeData] = React.useState([]);
 
-    // --------------- LIFECYCLE ---------------   
-    useEffect(() => {   
-        getEmployee();
-    }, []);
+    // --------------- LIFECYCLE ---------------  
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            getEmployee();
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     // --------------- METHODS ---------------
     const getEmployee = async() => {
@@ -47,6 +52,37 @@ const EmployeeList = ({ navigation }) => {
         }
     }
  
+    const onClickEdit = (Item) => {
+        navigation.navigate('EditEmployee', {Employee: Item})
+    }
+
+    const onClickDelete = (Item) => {
+        Alert.alert(
+            "Delete",
+            "Are you sure you want to delete the employee?",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => removeEmployee(Item) }
+            ]
+          );
+    }
+
+    const removeEmployee = async (Item) => {
+        try {
+            await db.transaction(async (tx) => {
+                await tx.executeSql(`DELETE FROM employee WHERE Id = ${Item?.Id}`);
+                Popup.success('Employee Deleted Successfully!');
+                getEmployee();
+            })
+        } catch (err) {
+            console.log('erremp-->', err)
+        }
+    }
+
     // --------------- UI METHODS ---------------
     const renderItem = React.useCallback(
         ({ item, index }) => (
@@ -55,17 +91,20 @@ const EmployeeList = ({ navigation }) => {
                     marginRight: index%2 == 0 ? Matrics.s(5): 0,
                     marginLeft : index%2 == 0 ? 0 : Matrics.s(5),
             }]}>
-                <Text style={styles.TitleText}>{item?.Name}</Text>
-                <Text style={styles.countText} numberOfLines={1}>{item?.Dob}</Text>
-                <Text style={styles.countText} numberOfLines={1}>{item?.Mobile_Number}</Text>
+                <Text style={styles.TitleText}>Name: {item?.EmployeeName}</Text>
+                <Text style={styles.countText} numberOfLines={1}>Dob: {item?.Dob}</Text>
+                <Text style={styles.countText}>MobileNo: {item?.Mobile_Number}</Text>
                 <View style={styles.btnView}>
-                    <Image source={Icons.Ic_Edit} />
-                    <Image source={Icons.Ic_Delete} />
+                    <Pressable onPress={() => onClickEdit(item)} >
+                        <Image source={Icons.Ic_Edit} style={styles.editBtn}/>
+                    </Pressable>
+                    <Pressable onPress={() => onClickDelete(item)} >
+                        <Image source={Icons.Ic_Delete} style={styles.deleteBtn}/>
+                    </Pressable>
                 </View>
             </View>
         ), [employeeData]
     );
-    console.log('rremp-->',employeeData)
     // --------------- RENDER ---------------
     return (
         <View style={ MainStyles.container }>

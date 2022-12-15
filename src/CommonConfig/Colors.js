@@ -14,6 +14,9 @@ export default {
     SUBTITLE: '#767674',
     LABEL: '#737373',
     INPUTLINE: '#EEC0FF',
+    BLUE: '#0465B0',
+    GREEN: '#008000',
+    GRIDBG: '#f3efe0',
 
     OVERLAY_DARK_10: 'rgba(0,0,0,0.1)',
     OVERLAY_DARK_20: 'rgba(0,0,0,0.2)',

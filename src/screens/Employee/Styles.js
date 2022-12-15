@@ -49,7 +49,7 @@ export const EmployeeListStyle = StyleSheet.create({
         marginLeft: Matrics.vs(10)
     },
     itemContainer: {
-        backgroundColor: Colors.GREY,
+        backgroundColor: Colors.GRIDBG,
         width: (width/2)-Matrics.vs(15),
         marginBottom: Matrics.vs(10),
         borderRadius: Matrics.vs(5),
@@ -70,7 +70,14 @@ export const EmployeeListStyle = StyleSheet.create({
      },
      btnView: {
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        marginVertical: Matrics.vs(5)
+     },
+     editBtn: {
+        tintColor: Colors.BLUE
+     },
+     deleteBtn: {
+        tintColor: Colors.GREEN
      }
 });
 
@@ -142,4 +149,24 @@ export const AddEmployeeStyle = StyleSheet.create({
         textAlign: 'center',
         color: Colors.PRIMARY,
 	},
+    dropdownContainer: {
+        marginVertical: Matrics.vs(10),
+    },
+    containerMonthStyle: {
+        borderWidth: 1,
+        borderColor: Colors.DROPDOWNBORDER,
+        paddingHorizontal: Matrics.vs(5),
+        borderRadius: Matrics.vs(5),
+        marginVertical: Matrics.vs(5)
+    },
+    placeholderStyle: {
+        color: Colors.GREY,
+        fontFamily: Fonts.RobotoRegular,
+        fontSize: Matrics.mvs(14)
+    },
+    selectedTextStyle: {
+        color: Colors.BLACK,
+        fontFamily: Fonts.RobotoRegular,
+        fontSize: Matrics.mvs(14)
+    },
 });

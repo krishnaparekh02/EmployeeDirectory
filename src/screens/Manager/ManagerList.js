@@ -47,7 +47,7 @@ const ManagerList = ({ navigation }) => {
     const createEmployeeTable = async () => {
         try {
             await db.transaction(async (tx) => {
-                await tx.executeSql(`CREATE TABLE employee (Id INTEGER PRIMARY KEY AUTOINCREMENT,ManagerId INTEGER,Name VARCHAR(255),Dob VARCHAR(255),Mobile_Number VARCHAR(10));`)
+                await tx.executeSql(`CREATE TABLE employee (Id INTEGER PRIMARY KEY AUTOINCREMENT,ManagerId INTEGER,EmployeeName TEXT,Dob DATE,Mobile_Number VARCHAR(10));`)
             })
         } catch (err) {
             console.log('erremp-->', err)
@@ -62,7 +62,6 @@ const ManagerList = ({ navigation }) => {
     }
 
     const setData = async (name) => {
-        console.log('setdata')
         try {
             await db.transaction(async (tx) => {
                 await tx.executeSql("INSERT INTO manager (Name) VALUES (?)",[name])
@@ -110,7 +109,6 @@ const ManagerList = ({ navigation }) => {
         ), [managerData]
     );
     // --------------- RENDER ---------------
-    console.log('rr-->', managerData)
     return (
         <View style={MainStyles.container}>
             <SafeAreaView style={styles.headerContainer}>

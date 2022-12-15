@@ -4,6 +4,7 @@ import { View, Text, Pressable, TouchableOpacity, Image, Modal, SafeAreaView } f
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
+import { Dropdown } from 'react-native-element-dropdown';
 
 // --------------- ASSETS ---------------
 import { Colors, Fonts, MainStyles, Images, Icons, Matrics, Constants } from '../../CommonConfig';
@@ -20,32 +21,53 @@ const AddProduct = ({ navigation }) => {
     const [mobileNumberError, setMobileNumberError] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+    const [managerId, setManagerId] = React.useState(0);
+    const [managerData, setManagerData] = React.useState([]);
 
     //----------LIFECYCLE/ HOOKS---------------
     React.useEffect(() => {
-        
+        getManager();
     },[]);
 
     //----------METHOD---------------
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
-      };
-    
-      const hideDatePicker = () => {
+    };
+
+    const hideDatePicker = () => {
         setDatePickerVisibility(false);
-      };
+    };
     
-      const handleConfirm = (date) => {
+    const handleConfirm = (date) => {
         console.warn("A date has been picked: ", date);
-        console.warn("moment: ", moment(date).format("DD/MM/YYYY"));
-        setDob(moment(date).format('DD/MM/YYYY'));
+        console.warn("moment: ", moment(date).format("YYYY-MM-DD"));
+        setDob(moment(date).format('YYYY-MM-DD'));
         setDobError('');
         hideDatePicker();
-      };
+    };
 
+    const getManager = async () => {
+        try {
+            await global.db.transaction(async (tx) => {
+                await tx.executeSql("SELECT * FROM manager",[],
+                (tx,results) => {
+                    var len = results.rows.length;
+                    let dataRes = [];
+                    if(len > 0){
+                        for(let i=0; i<len ; i ++){
+                            dataRes.push(results.rows.item(i));
+                        }
+                    }
+                    setManagerData(dataRes);
+                });
+            })
+        } catch (error) {
+            console.log('error-->', error);
+        }
+    }
       
-    const onPressAddEmployee = () => {
+    const onPressAddEmployee = async () => {
         if (name == "") {
             setNameError('Please enter the employee name');
         } else if (dob == "") {
@@ -55,12 +77,15 @@ const AddProduct = ({ navigation }) => {
         } else if (mobileNumber.length < 10) {
             setMobileNumberError('Please enter the valid mobile number');
         } else {
-            const params = {
-                "userId": global.userId,
-                "name": name,
-                "price": price,
-                "offerPrice": offerPrice,
-                "image": ImageName
+            try {
+                await db.transaction(async (tx) => {
+                    await tx.executeSql("INSERT INTO employee (ManagerId,EmployeeName,Dob,Mobile_Number) VALUES (?,?,?,?)",[managerId,name,dob,mobileNumber]);
+                    Popup.success('Employee Created Successfully!');
+                    navigation.goBack();
+                })
+            } catch (error) {
+                console.log('error-->', error);
+                Popup.error('Something went wrong');
             }
         }
     }
@@ -89,6 +114,26 @@ const AddProduct = ({ navigation }) => {
                     errorMsg={nameError}
                     inputStyle={{ color: Colors.BLACK}}
                 />
+                <View style={styles.dropdownContainer}>
+                    <Text style={styles.LabelText}>Select Manager</Text>
+                    <Dropdown
+                        style={styles.containerMonthStyle}
+                        data={managerData}
+                        search={false}
+                        maxHeight={300}
+                        fontFamily={Fonts.RobotoRegular}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        itemTextStyle={styles.selectedTextStyle}
+                        labelField="Name"
+                        valueField="Id"
+                        placeholder={'select manager'}
+                        value={managerId}
+                        onChange={item => {
+                            setManagerId(item.Id);
+                        }}
+                    />
+                </View>
                 <Text style={styles.LabelText}>DOB</Text>
                 <Pressable style={styles.dateView(dobError)} onPress={showDatePicker}>
                     <Text style={styles.dateText}>{dob ? dob : 'select Date'}</Text>
