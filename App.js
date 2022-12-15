@@ -1,12 +1,8 @@
 import React from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
+  LogBox,
 } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -16,6 +12,9 @@ import { snackBarRef } from './src/Helpers/Popup';
 import { SnackBar } from './src/Components/Common';
 
 const App = () => {
+
+  LogBox.ignoreAllLogs();
+
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={'dark-content'} />
