@@ -118,7 +118,7 @@ const EmployeeList = ({ navigation }) => {
             {
                 isLoading ? (<Shimmer.Dashboard />)
                     : (
-                        <View style={styles.container}>
+                        <View style={{ flex: 1 }}>
                             <FlatList
                                 data={employeeData}
                                 renderItem={renderItem}

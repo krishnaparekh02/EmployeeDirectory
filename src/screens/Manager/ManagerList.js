@@ -16,7 +16,6 @@ const ManagerList = ({ navigation }) => {
     // --------------- REDUCER STATE ---------------
     
     // --------------- STATE ---------------
-    const temp =[{"Id": 1, "Name": "krishna"}, {"Id": 2, "Name": "Gaurav"}, {"Id": 3, "Name": "Madhuri"}, {"Id": 4, "Name": "vandana"}, {"Id": 5, "Name": "karan"}, {"Id": 6, "Name": "krishna"}, {"Id": 7, "Name": "Gaurav"}, {"Id": 8, "Name": "Madhuri"}, {"Id": 9, "Name": "vandana"}, {"Id": 10, "Name": "karan"}, {"Id": 11, "Name": "krishna"}, {"Id": 12, "Name": "Gaurav"}, {"Id": 13, "Name": "Madhuri"}, {"Id": 14, "Name": "vandana"}, {"Id": 15, "Name": "karan"}, {"Id": 16, "Name": "krishna"}, {"Id": 17, "Name": "Gaurav"}, {"Id": 18, "Name": "Madhuri"}, {"Id": 19, "Name": "vandana"}, {"Id": 20, "Name": "karan"}, {"Id": 21, "Name": "krishna"}, {"Id": 22, "Name": "Gaurav"}, {"Id": 23, "Name": "Madhuri"}, {"Id": 24, "Name": "vandana"}, {"Id": 25, "Name": "karan"}, {"Id": 26, "Name": "krishna"}, {"Id": 27, "Name": "Gaurav"}, {"Id": 28, "Name": "Madhuri"}, {"Id": 29, "Name": "vandana"}, {"Id": 30, "Name": "karan"}, {"Id": 31, "Name": "krishna"}, {"Id": 32, "Name": "Gaurav"}, {"Id": 33, "Name": "Madhuri"}, {"Id": 34, "Name": "vandana"}, {"Id": 35, "Name": "karan"}, {"Id": 36, "Name": "krishna"}, {"Id": 37, "Name": "Gaurav"}, {"Id": 38, "Name": "Madhuri"}, {"Id": 39, "Name": "vandana"}, {"Id": 40, "Name": "karan"}, {"Id": 41, "Name": "krishna"}, {"Id": 42, "Name": "Gaurav"}, {"Id": 43, "Name": "Madhuri"}, {"Id": 44, "Name": "vandana"}, {"Id": 45, "Name": "karan"}, {"Id": 46, "Name": "krishna"}, {"Id": 47, "Name": "Gaurav"}, {"Id": 48, "Name": "Madhuri"}, {"Id": 49, "Name": "vandana"}, {"Id": 50, "Name": "karan"}, {"Id": 51, "Name": "krishna"}, {"Id": 52, "Name": "Gaurav"}, {"Id": 53, "Name": "Madhuri"}, {"Id": 54, "Name": "vandana"}, {"Id": 55, "Name": "karan"}];
     const [isLoading, setIsLoading] = React.useState(true);
     const [managerData, setManagerData] = React.useState([]);
     
@@ -94,7 +93,10 @@ const ManagerList = ({ navigation }) => {
                     console.log('dataRes-->', dataRes);
                     // return dataRes;
                     setManagerData(dataRes);
-                    setIsLoading(false);
+                    setTimeout(() => {
+                        setIsLoading(false);
+                    },3000);
+                    
                 });
             })
         } catch (error) {
@@ -125,7 +127,7 @@ const ManagerList = ({ navigation }) => {
             {
                 isLoading ? (<Shimmer.Dashboard />)
                     : (
-                        <View style={styles.container}>
+                        <View style={{ flex: 1 }}>
                             <FlatList
                                 data={managerData}
                                 renderItem={renderItem}

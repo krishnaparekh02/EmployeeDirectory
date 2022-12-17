@@ -16,6 +16,7 @@ export const EmployeeListStyle = StyleSheet.create({
         shadowOpacity:  0.4,
         shadowRadius: 3,
         elevation: 5,
+        paddingTop: Matrics.vs(5)
     },
     headerText: {
         color: Colors.BLACK,
@@ -93,6 +94,7 @@ export const AddEmployeeStyle = StyleSheet.create({
         shadowOpacity:  0.4,
         shadowRadius: 3,
         elevation: 5,
+        paddingTop: Matrics.vs(5)
     },
     headerImg: {
         alignSelf: 'center',

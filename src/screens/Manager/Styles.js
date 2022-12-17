@@ -14,6 +14,7 @@ export const ManagerListStyle = StyleSheet.create({
         shadowOpacity:  0.4,
         shadowRadius: 3,
         elevation: 5,
+        paddingTop: Matrics.vs(5)
     },
     headerText: {
         color: Colors.BLACK,

@@ -9,7 +9,7 @@ import { Colors, Constants, Icons, Images, Matrics, MainStyles, Fonts } from '..
 const NoData = ({message, image, Top = 0}) => {
     return (
         <View
-            style={[styles.container, { backgroundColor: Colors.WHITE} ]}
+            style={[styles.container]}
         >
             <Image 
                 source={image ?? Images.IC_NoData}

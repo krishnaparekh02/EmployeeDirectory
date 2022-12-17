@@ -10,6 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Routes from './src/Routes';
 import { snackBarRef } from './src/Helpers/Popup';
 import { SnackBar } from './src/Components/Common';
+import { Colors, Fonts, MainStyles, Images, Icons, Matrics, Constants } from './src/CommonConfig';
 
 const App = () => {
 
@@ -17,7 +18,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={'dark-content'} />
+      <StatusBar barStyle={'dark-content'} backgroundColor={Colors.WHITE}/>
       <Routes />
       <SnackBar ref={snackBarRef} />
     </SafeAreaProvider>
